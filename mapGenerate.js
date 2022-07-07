@@ -29,9 +29,10 @@ class Field {
   }
 
   generateField() {
-    this.board.map(r => {
-      r = fieldCharacter;
-    })
+    this.board = new Array(this.row);
+    for (var i = 0; i < this.row; i++) {
+      this.board[i] = new Array(this.column);
+    }
     let randomRow = Math.floor(Math.random() * this.row);
     let randomColumn = Math.floor(Math.random() * this.column);
     // Random Player
@@ -47,11 +48,11 @@ class Field {
     })
     this.print();
   }
-  
+
   print() {
     console.log(this.board.map(r => r.join('')).join('\n'));
   }
-  
+
   checkDirectionInput(key) {
     switch (key) {
       // Move Up
