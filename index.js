@@ -74,12 +74,12 @@ class Field {
       console.log('Omae Wa Mou Shindeiru! Nani!!!');
     }
     // Lower Edge
-    if (this.playerPosition[0] > this.board.length) {
+    if (this.playerPosition[0] > (this.board.length - 1)) {
       console.log('Gameover!: You fell a map.');
       console.log('Omae Wa Mou Shindeiru! Nani!!!');
     }
     // Right Edge
-    if (this.playerPosition[0] > this.board[0].length) {
+    if (this.playerPosition[1] > (this.board[0].length - 1)) {
       console.log('Gameover!: You fell a map.');
       console.log('Omae Wa Mou Shindeiru! Nani!!!');
     }
@@ -97,6 +97,7 @@ const myField = new Field([
   ['░', '^', '░'],
 ]);
 
+myField.print();
 while (true) {
   console.log('Which way you want to go?');
   const input = prompt('W: Up, A: Left, S: Down, D: right => ');
