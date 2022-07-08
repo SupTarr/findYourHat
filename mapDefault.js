@@ -1,16 +1,21 @@
 const prompt = require('prompt-sync')({ sigint: true });
 /* index of the board
-  ________________
-  |  00  01  02  |
-  |  10  11  12  |
-  |  20  21  22  |
-  ----------------
+
+      C O L U M N
+    ----------------
+ R  |  00  01  02  |
+ O  |  10  11  12  |
+ W  |  20  21  22  |
+    ----------------
+
 */
+
 /* Default Map
   ['*', '░', 'O'],
   ['░', 'O', '░'],
   ['░', '^', '░'], 
 */
+
 const hat = '^';
 const hole = 'O';
 const fieldCharacter = '░';
