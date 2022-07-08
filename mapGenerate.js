@@ -17,23 +17,43 @@ class Field {
   }
 
   generateField() {
-    this.board = new Array(this.row);
-    for (var i = 0; i < this.row; i++) {
-      this.board[i] = new Array(this.column);
+    // Generate Field With fieldCharacter
+    for (let i = 0; i < this.row; i++) {
+      this.board[i] = [];
+      for (let j = 0; j < this.column; j++) {
+        this.board[i][j] = fieldCharacter;
+      }
     }
+    // Random Player
     let randomRow = Math.floor(Math.random() * this.row);
     let randomColumn = Math.floor(Math.random() * this.column);
-    // Random Player
+    this.playerPosition[0] = randomRow;
+    this.playerPosition[1] = randomColumn;
     this.board[randomRow][randomColumn] = pathCharacter;
+    // Random Hat
     randomRow = Math.floor(Math.random() * this.row);
     randomColumn = Math.floor(Math.random() * this.column);
-    // Random Hat
+    this.hatPosition[0] = randomRow;
+    this.hatPosition[1] = randomColumn;
     this.board[randomRow][randomColumn] = hat;
-    this.board.map((r) => {
-      if (r !== pathCharacter && r !== pathCharacter) {
-        r = fieldCharacter;
+    // Random Hole
+    const holeAmount = Math.floor(this.row * this.column * percent);
+    while (this.countHole < holeAmount) {
+      randomRow = Math.floor(Math.random() * this.row);
+      randomColumn = Math.floor(Math.random() * this.column);
+      if (
+        randomRow !== this.playerPosition[0] &&
+        randomColumn !== this.playerPosition[1]
+      ) {
+        if (
+          randomRow !== this.hatPosition[0] &&
+          randomColumn !== this.hatPosition[1]
+        ) {
+          this.countHole++;
+          this.board[randomRow][randomColumn] = hole;
+        }
       }
-    });
+    }
     this.print();
   }
 
