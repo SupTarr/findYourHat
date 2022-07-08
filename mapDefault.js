@@ -1,4 +1,4 @@
-const prompt = require('prompt-sync')({ sigint: true });
+const prompt = require("prompt-sync")({ sigint: true });
 /* index of the board
 
       C O L U M N
@@ -16,10 +16,10 @@ const prompt = require('prompt-sync')({ sigint: true });
   ['░', '^', '░'], 
 */
 
-const hat = '^';
-const hole = 'O';
-const fieldCharacter = '░';
-const pathCharacter = '*';
+const hat = "^";
+const hole = "O";
+const fieldCharacter = "░";
+const pathCharacter = "*";
 const percent = 0.3;
 
 class Field {
@@ -32,17 +32,17 @@ class Field {
   }
 
   print() {
-    console.log(this.board.map(r => r.join('')).join('\n'));
+    console.log(this.board.map((r) => r.join("")).join("\n"));
   }
 
   checkDirectionInput(key) {
     switch (key) {
       // Move Up
-      case 'W':
+      case "W":
         // Check Fall Upper Edge
         if (this.playerPosition[0] === 0) {
-          console.log('Game over!: You fell a map.');
-          console.log('Omae Wa Mou Shindeiru! Nani!!!');
+          console.log("Game over!: You fell a map.");
+          console.log("Omae Wa Mou Shindeiru! Nani!!!");
           this.checkFall = true;
         }
         // Move player
@@ -52,27 +52,30 @@ class Field {
         }
         // Check Win
         if (this.checkWin() === true) {
-          console.log('You Win!: You can find a hat.');
-          console.log('Mission Complete!!!');
+          console.log("You Win!: You can find a hat.");
+          console.log("Mission Complete!!!");
         }
         // Check Fall in a hole
-        if (this.board[this.playerPosition[0]][this.playerPosition[1]] === hole) {
-          console.log('Game over!: You fall in a hole.');
-          console.log('Omae Wa Mou Shindeiru! Nani!!!');
+        if (
+          this.board[this.playerPosition[0]][this.playerPosition[1]] === hole
+        ) {
+          console.log("Game over!: You fall in a hole.");
+          console.log("Omae Wa Mou Shindeiru! Nani!!!");
           this.checkFall = true;
         }
         if (this.checkFall === false && this.checkWin() === false) {
-          this.board[this.playerPosition[0]][this.playerPosition[1]] = pathCharacter;
+          this.board[this.playerPosition[0]][this.playerPosition[1]] =
+            pathCharacter;
           this.print();
           break;
         }
         break;
       // Move Left
-      case 'A':
+      case "A":
         // Check Fall Left Edge
         if (this.playerPosition[1] === 0) {
-          console.log('Game over!: You fell a map.');
-          console.log('Omae Wa Mou Shindeiru! Nani!!!');
+          console.log("Game over!: You fell a map.");
+          console.log("Omae Wa Mou Shindeiru! Nani!!!");
           this.checkFall = true;
         }
         // Move player
@@ -82,79 +85,89 @@ class Field {
         }
         // Check Win
         if (this.checkWin() === true) {
-          console.log('You Win!: You can find a hat.');
-          console.log('Mission Complete!!!');
+          console.log("You Win!: You can find a hat.");
+          console.log("Mission Complete!!!");
         }
         // Check Fall in a hole
-        if (this.board[this.playerPosition[0]][this.playerPosition[1]] === hole) {
-          console.log('Game over!: You fall in a hole.');
-          console.log('Omae Wa Mou Shindeiru! Nani!!!');
+        if (
+          this.board[this.playerPosition[0]][this.playerPosition[1]] === hole
+        ) {
+          console.log("Game over!: You fall in a hole.");
+          console.log("Omae Wa Mou Shindeiru! Nani!!!");
           this.checkFall = true;
         }
         if (this.checkFall === false && this.checkWin() === false) {
-          this.board[this.playerPosition[0]][this.playerPosition[1]] = pathCharacter;
+          this.board[this.playerPosition[0]][this.playerPosition[1]] =
+            pathCharacter;
           this.print();
         }
         break;
       // Move Down
-      case 'S':
+      case "S":
         // Check Fall Lower Edge
-        if (this.playerPosition[0] === (this.board.length - 1)) {
-          console.log('Game over!: You fell a map.');
-          console.log('Omae Wa Mou Shindeiru! Nani!!!');
+        if (this.playerPosition[0] === this.board.length - 1) {
+          console.log("Game over!: You fell a map.");
+          console.log("Omae Wa Mou Shindeiru! Nani!!!");
           this.checkFall = true;
         }
         // Move player
-        if (this.playerPosition[0] < (this.board.length - 1)) {
+        if (this.playerPosition[0] < this.board.length - 1) {
           this.playerPosition[0]++;
           this.checkWin();
         }
         // Check Win
         if (this.checkWin() === true) {
-          console.log('You Win!: You can find a hat.');
-          console.log('Mission Complete!!!');
+          console.log("You Win!: You can find a hat.");
+          console.log("Mission Complete!!!");
         }
         // Check Fall in a hole
-        if (this.board[this.playerPosition[0]][this.playerPosition[1]] === hole) {
-          console.log('Game over!: You fall in a hole.');
-          console.log('Omae Wa Mou Shindeiru! Nani!!!');
+        if (
+          this.board[this.playerPosition[0]][this.playerPosition[1]] === hole
+        ) {
+          console.log("Game over!: You fall in a hole.");
+          console.log("Omae Wa Mou Shindeiru! Nani!!!");
           this.checkFall = true;
         }
         if (this.checkFall === false && this.checkWin() === false) {
-          this.board[this.playerPosition[0]][this.playerPosition[1]] = pathCharacter;
+          this.board[this.playerPosition[0]][this.playerPosition[1]] =
+            pathCharacter;
           this.print();
         }
         break;
       // Move Right
-      case 'D':
+      case "D":
         // Check Fall Right Edge
-        if (this.playerPosition[1] === (this.board[0].length - 1)) {
-          console.log('Game over!: You fell a map.');
-          console.log('Omae Wa Mou Shindeiru! Nani!!!');
+        if (this.playerPosition[1] === this.board[0].length - 1) {
+          console.log("Game over!: You fell a map.");
+          console.log("Omae Wa Mou Shindeiru! Nani!!!");
           this.checkFall = true;
         }
         // Move player
-        if (this.playerPosition[1] < (this.board[0].length - 1)) {
+        if (this.playerPosition[1] < this.board[0].length - 1) {
           this.playerPosition[1]++;
           this.checkWin();
         }
         // Check Win
         if (this.checkWin() === true) {
-          console.log('You Win!: You can find a hat.');
-          console.log('Mission Complete!!!');
+          console.log("You Win!: You can find a hat.");
+          console.log("Mission Complete!!!");
         }
         // Check Fall in a hole
-        if (this.board[this.playerPosition[0]][this.playerPosition[1]] === hole) {
-          console.log('Game over!: You fall in a hole.');
-          console.log('Omae Wa Mou Shindeiru! Nani!!!');
+        if (
+          this.board[this.playerPosition[0]][this.playerPosition[1]] === hole
+        ) {
+          console.log("Game over!: You fall in a hole.");
+          console.log("Omae Wa Mou Shindeiru! Nani!!!");
           this.checkFall = true;
         }
         if (this.checkFall === false && this.checkWin() === false) {
-          this.board[this.playerPosition[0]][this.playerPosition[1]] = pathCharacter;
+          this.board[this.playerPosition[0]][this.playerPosition[1]] =
+            pathCharacter;
           this.print();
         }
         break;
-      default: console.log('Input Error');
+      default:
+        console.log("Input Error");
     }
   }
 
@@ -167,13 +180,14 @@ class Field {
 }
 // initialize
 const myField = new Field([
-  ['*', '░', 'O'],
-  ['░', 'O', '░'],
-  ['░', '^', '░'], ]);
+  ["*", "░", "O"],
+  ["░", "O", "░"],
+  ["░", "^", "░"],
+]);
 myField.print();
 
 while (myField.checkFall === false && myField.checkWin() === false) {
-  console.log('Which way you want to go?');
-  const input = prompt('W: Up, A: Left, S: Down, D: right => ');
+  console.log("Which way you want to go?");
+  const input = prompt("W: Up, A: Left, S: Down, D: right => ");
   myField.checkDirectionInput(input);
 }
