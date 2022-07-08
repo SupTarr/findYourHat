@@ -1,6 +1,6 @@
 # findYourHat
-## Default Map
-  index of the board
+## Default Map \
+  index of the board  \
       C O L U M N  \
     ----------------  \
  R  | 00 | 01 | 02 |  \
@@ -11,7 +11,7 @@
   Default Map  \
   ['*', '░', 'O'],\
   ['░', 'O', '░'],\
-  ['░', '^', '░'],\
+  ['░', '^', '░'],
 
 ## Auto Generate Map
 You can input row and column to auto generate map.
