@@ -1,5 +1,5 @@
 # findYourHat
-## Default Map \
+## Default Map 
   index of the board  \
       C O L U M N  \
     ----------------  \
