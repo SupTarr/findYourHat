@@ -28,6 +28,7 @@ class Field {
     this.playerPosition = [0, 0];
     this.hatPosition = [2, 1];
     this.checkFall = false;
+    this.checkGoBack = false;
     this.countHole = 0;
   }
 
@@ -63,12 +64,26 @@ class Field {
           console.log("Omae Wa Mou Shindeiru! Nani!!!");
           this.checkFall = true;
         }
-        if (this.checkFall === false && this.checkWin() === false) {
+        // Check if you go back to the same place
+        if (
+          this.board[this.playerPosition[0]][this.playerPosition[1]] ===
+          pathCharacter
+        ) {
+          console.log("You can't go back from where you came from.");
+          console.log("Try again!");
+          this.playerPosition[0]++;
+          this.checkGoBack = true;
+        }
+        if (
+          this.checkFall === false &&
+          this.checkWin() === false &&
+          this.checkGoBack === false
+        ) {
           this.board[this.playerPosition[0]][this.playerPosition[1]] =
             pathCharacter;
-          this.print();
-          break;
         }
+        this.checkGoBack = false;
+        this.print();
         break;
       // Move Left
       case "A":
@@ -96,11 +111,26 @@ class Field {
           console.log("Omae Wa Mou Shindeiru! Nani!!!");
           this.checkFall = true;
         }
-        if (this.checkFall === false && this.checkWin() === false) {
+        // Check if you go back to the same place
+        if (
+          this.board[this.playerPosition[0]][this.playerPosition[1]] ===
+          pathCharacter
+        ) {
+          console.log("You can't go back from where you came from.");
+          console.log("Try again!");
+          this.playerPosition[1]++;
+          this.checkGoBack = true;
+        }
+        if (
+          this.checkFall === false &&
+          this.checkWin() === false &&
+          this.checkGoBack === false
+        ) {
           this.board[this.playerPosition[0]][this.playerPosition[1]] =
             pathCharacter;
-          this.print();
         }
+        this.checkGoBack = false;
+        this.print();
         break;
       // Move Down
       case "S":
@@ -128,11 +158,26 @@ class Field {
           console.log("Omae Wa Mou Shindeiru! Nani!!!");
           this.checkFall = true;
         }
-        if (this.checkFall === false && this.checkWin() === false) {
+        // Check if you go back to the same place
+        if (
+          this.board[this.playerPosition[0]][this.playerPosition[1]] ===
+          pathCharacter
+        ) {
+          console.log("You can't go back from where you came from.");
+          console.log("Try again!");
+          this.playerPosition[0]--;
+          this.checkGoBack = true;
+        }
+        if (
+          this.checkFall === false &&
+          this.checkWin() === false &&
+          this.checkGoBack === false
+        ) {
           this.board[this.playerPosition[0]][this.playerPosition[1]] =
             pathCharacter;
-          this.print();
         }
+        this.checkGoBack = false;
+        this.print();
         break;
       // Move Right
       case "D":
@@ -160,11 +205,26 @@ class Field {
           console.log("Omae Wa Mou Shindeiru! Nani!!!");
           this.checkFall = true;
         }
-        if (this.checkFall === false && this.checkWin() === false) {
+        // Check if you go back to the same place
+        if (
+          this.board[this.playerPosition[0]][this.playerPosition[1]] ===
+          pathCharacter
+        ) {
+          console.log("You can't go back from where you came from.");
+          console.log("Try again!");
+          this.playerPosition[1]--;
+          this.checkGoBack = true;
+        }
+        if (
+          this.checkFall === false &&
+          this.checkWin() === false &&
+          this.checkGoBack === false
+        ) {
           this.board[this.playerPosition[0]][this.playerPosition[1]] =
             pathCharacter;
-          this.print();
         }
+        this.checkGoBack = false;
+        this.print();
         break;
       default:
         console.log("Input Error");
