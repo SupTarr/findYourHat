@@ -3,6 +3,7 @@
   <li>Wins by finding their hat.</li>
   <li>Loses by landing on (and falling in) a hole.</li>
   <li>Attempts to move “outside” the field.</li>
+  <li>You cannot trun back to where you came from.</li>
 </ol>
 
 ## Default Map 
