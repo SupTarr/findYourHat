@@ -80,6 +80,7 @@ class Field {
         if (this.checkWin() === true) {
           console.log("You Win!: You can find a hat.");
           console.log("Mission Complete!!!");
+          break;
         }
         // Check Fall in a hole
         if (
@@ -88,27 +89,24 @@ class Field {
           console.log("Game over!: You fall in a hole.");
           console.log("Omae Wa Mou Shindeiru! Nani!!!");
           this.checkFall = true;
+          break;
         }
         // Check if you go back to the same place
         if (
           this.board[this.playerPosition[0]][this.playerPosition[1]] ===
-          pathCharacter
+            pathCharacter &&
+          this.checkFall === false
         ) {
           console.log("You can't go back from where you came from.");
           console.log("Try again!");
           this.playerPosition[0]++;
           this.checkGoBack = true;
         }
-        if (
-          this.checkFall === false &&
-          this.checkWin() === false &&
-          this.checkGoBack === false
-        ) {
+        if (this.checkFall === false && this.checkWin() === false) {
           this.board[this.playerPosition[0]][this.playerPosition[1]] =
             pathCharacter;
+          this.print();
         }
-        this.checkGoBack = false;
-        this.print();
         break;
       // Move Left
       case "A":
@@ -127,6 +125,7 @@ class Field {
         if (this.checkWin() === true) {
           console.log("You Win!: You can find a hat.");
           console.log("Mission Complete!!!");
+          break;
         }
         // Check Fall in a hole
         if (
@@ -135,27 +134,23 @@ class Field {
           console.log("Game over!: You fall in a hole.");
           console.log("Omae Wa Mou Shindeiru! Nani!!!");
           this.checkFall = true;
+          break;
         }
         // Check if you go back to the same place
         if (
           this.board[this.playerPosition[0]][this.playerPosition[1]] ===
-          pathCharacter
+            pathCharacter &&
+          this.checkFall === false
         ) {
           console.log("You can't go back from where you came from.");
           console.log("Try again!");
           this.playerPosition[1]++;
-          this.checkGoBack = true;
         }
-        if (
-          this.checkFall === false &&
-          this.checkWin() === false &&
-          this.checkGoBack === false
-        ) {
+        if (this.checkFall === false && this.checkWin() === false) {
           this.board[this.playerPosition[0]][this.playerPosition[1]] =
             pathCharacter;
+          this.print();
         }
-        this.checkGoBack = false;
-        this.print();
         break;
       // Move Down
       case "S":
@@ -174,6 +169,7 @@ class Field {
         if (this.checkWin() === true) {
           console.log("You Win!: You can find a hat.");
           console.log("Mission Complete!!!");
+          break;
         }
         // Check Fall in a hole
         if (
@@ -182,27 +178,23 @@ class Field {
           console.log("Game over!: You fall in a hole.");
           console.log("Omae Wa Mou Shindeiru! Nani!!!");
           this.checkFall = true;
+          break;
         }
         // Check if you go back to the same place
         if (
           this.board[this.playerPosition[0]][this.playerPosition[1]] ===
-          pathCharacter
+            pathCharacter &&
+          this.checkFall === false
         ) {
           console.log("You can't go back from where you came from.");
           console.log("Try again!");
           this.playerPosition[0]--;
-          this.checkGoBack = true;
         }
-        if (
-          this.checkFall === false &&
-          this.checkWin() === false &&
-          this.checkGoBack === false
-        ) {
+        if (this.checkFall === false && this.checkWin() === false) {
           this.board[this.playerPosition[0]][this.playerPosition[1]] =
             pathCharacter;
+          this.print();
         }
-        this.checkGoBack = false;
-        this.print();
         break;
       // Move Right
       case "D":
@@ -221,6 +213,7 @@ class Field {
         if (this.checkWin() === true) {
           console.log("You Win!: You can find a hat.");
           console.log("Mission Complete!!!");
+          break;
         }
         // Check Fall in a hole
         if (
@@ -229,27 +222,23 @@ class Field {
           console.log("Game over!: You fall in a hole.");
           console.log("Omae Wa Mou Shindeiru! Nani!!!");
           this.checkFall = true;
+          break;
         }
         // Check if you go back to the same place
         if (
           this.board[this.playerPosition[0]][this.playerPosition[1]] ===
-          pathCharacter
+            pathCharacter &&
+          this.checkFall === false
         ) {
           console.log("You can't go back from where you came from.");
           console.log("Try again!");
           this.playerPosition[1]--;
-          this.checkGoBack = true;
         }
-        if (
-          this.checkFall === false &&
-          this.checkWin() === false &&
-          this.checkGoBack === false
-        ) {
+        if (this.checkFall === false && this.checkWin() === false) {
           this.board[this.playerPosition[0]][this.playerPosition[1]] =
             pathCharacter;
+          this.print();
         }
-        this.checkGoBack = false;
-        this.print();
         break;
       default:
         console.log("Input Error");
