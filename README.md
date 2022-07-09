@@ -1,4 +1,10 @@
 # findYourHat
+<ol type="Rules">
+  <li>Wins by finding their hat.</li>
+  <li>Attempts to move “outside” the field.</li>
+  <li>List 3</li>
+</ol>
+
 ## Default Map 
   index of the board  \
       C O L U M N  \
