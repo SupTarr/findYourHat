@@ -228,7 +228,7 @@ class Field {
 }
 // initialize
 const myField = new Field([
-  ["*", "░", "░"],
+  ["*", "░", "O"],
   ["░", "O", "░"],
   ["░", "^", "░"],
 ]);
