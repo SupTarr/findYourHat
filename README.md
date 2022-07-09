@@ -1,8 +1,8 @@
 # findYourHat
 <ol type="Rules">
   <li>Wins by finding their hat.</li>
+  <li>Loses by landing on (and falling in) a hole.</li>
   <li>Attempts to move “outside” the field.</li>
-  <li>List 3</li>
 </ol>
 
 ## Default Map 
