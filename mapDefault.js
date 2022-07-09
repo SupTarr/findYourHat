@@ -20,7 +20,6 @@ const hat = "^";
 const hole = "O";
 const fieldCharacter = "░";
 const pathCharacter = "*";
-const percent = 0.3;
 
 class Field {
   constructor(inputBoard) {
