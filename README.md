@@ -25,3 +25,13 @@
 
 ## Auto Generate Map
 You can input row and column to auto generate map.
+
+## Check if Node js is installed and check Node js version.
+1. Open your command line tool (as above, Terminal, Command, Git Bash etc.)
+2. Type node -v
+3. This will print a version number if you do have node installed
+
+## Run a Node js file in terminal / command
+1. Open your Shell / Terminal / Command / Git Bash / Visual Studio Code Terminal window
+2. Change the location to your node project
+3. Type node filename.js
