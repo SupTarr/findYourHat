@@ -1,4 +1,5 @@
 # findYourHat
+https://replit.com/@SupTarr/findYourHat
 <ol type="Rules">
   <li>Wins by finding their hat.</li>
   <li>Loses by landing on (and falling in) a hole.</li>
