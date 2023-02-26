@@ -26,56 +26,93 @@ class Field {
     this.board = inputBoard;
     this.playerPosition = [0, 0];
     this.hatPosition = [2, 1];
-    this.checkFall = false;
     this.countHole = 0;
+    this.isFallenEdge = false;
+    this.isFallenHole = false;
+    this.isWin = false;
   }
 
   print() {
     console.log(this.board.map((r) => r.join("")).join("\n"));
   }
 
+  checkFallenEdge(key) {
+    switch (key) {
+      case "W":
+        // Check Fall Upper Edge
+        if (this.playerPosition[0] === 0) {
+          this.isFallenEdge = true;
+        }
+      case "A":
+        // Check Fall Left Edge
+        if (this.playerPosition[1] === 0) {
+          this.isFallenEdge = true;
+        }
+      case "S":
+        // Check Fall Lower Edge
+        if (this.playerPosition[0] === this.board.length - 1) {
+          this.isFallenEdge = true;
+        }
+      case "D":
+        // Check Fall Right Edge
+        if (this.playerPosition[1] === this.board[0].length - 1) {
+          this.isFallenEdge = true;
+        }
+    }
+    if (this.isFallenEdge) {
+      console.log("Game over!: You fell a map.");
+      console.log("Omae Wa Mou Shindeiru! Nani!!!");
+    }
+  }
+
+  checkFallenHole() {
+    if (this.board[this.playerPosition[0]][this.playerPosition[1]] === hole) {
+      this.isFallenHole = true;
+    }
+    if (this.isFallenHole) {
+      console.log("Game over!: You fall in a hole.");
+      console.log("Omae Wa Mou Shindeiru! Nani!!!");
+    }
+  }
+
+  checkWin() {
+    if (this.board[this.playerPosition[0]][this.playerPosition[1]] === hat) {
+      this.isWin = true;
+    }
+    if (this.isWin) {
+      console.log("You Win!: You can find a hat.");
+      console.log("Mission Complete!!!");
+    }
+  }
+
   checkDirectionInput(key) {
     switch (key) {
       // Move Up
       case "W":
-        // Check Fall Upper Edge
-        if (this.playerPosition[0] === 0) {
-          console.log("Game over!: You fell a map.");
-          console.log("Omae Wa Mou Shindeiru! Nani!!!");
-          this.checkFall = true;
-        }
+        this.checkFallenEdge("W");
         // Move player
         if (this.playerPosition[0] > 0) {
           this.playerPosition[0]--;
           this.checkWin();
         }
         // Check Win
-        if (this.checkWin() === true) {
-          console.log("You Win!: You can find a hat.");
-          console.log("Mission Complete!!!");
+        if (this.isWin === true) {
           break;
         }
         // Check Fall in a hole
-        if (
-          this.board[this.playerPosition[0]][this.playerPosition[1]] === hole
-        ) {
-          console.log("Game over!: You fall in a hole.");
-          console.log("Omae Wa Mou Shindeiru! Nani!!!");
-          this.checkFall = true;
-          break;
-        }
+        this.checkFallenHole();
         // Check if you go back to the same place
         if (
           this.board[this.playerPosition[0]][this.playerPosition[1]] ===
             pathCharacter &&
-          this.checkFall === false
+          this.isFallen === false
         ) {
           console.log("You can't go back from where you came from.");
           console.log("Try again!");
           this.playerPosition[0]++;
           this.checkGoBack = true;
         }
-        if (this.checkFall === false && this.checkWin() === false) {
+        if (this.isFallenEdge === false && this.isWin === false) {
           this.board[this.playerPosition[0]][this.playerPosition[1]] =
             pathCharacter;
           this.print();
@@ -83,43 +120,29 @@ class Field {
         break;
       // Move Left
       case "A":
-        // Check Fall Left Edge
-        if (this.playerPosition[1] === 0) {
-          console.log("Game over!: You fell a map.");
-          console.log("Omae Wa Mou Shindeiru! Nani!!!");
-          this.checkFall = true;
-        }
+        this.checkFallenEdge("A");
         // Move player
         if (this.playerPosition[1] > 0) {
           this.playerPosition[1]--;
           this.checkWin();
         }
         // Check Win
-        if (this.checkWin() === true) {
-          console.log("You Win!: You can find a hat.");
-          console.log("Mission Complete!!!");
+        if (this.isWin === true) {
           break;
         }
         // Check Fall in a hole
-        if (
-          this.board[this.playerPosition[0]][this.playerPosition[1]] === hole
-        ) {
-          console.log("Game over!: You fall in a hole.");
-          console.log("Omae Wa Mou Shindeiru! Nani!!!");
-          this.checkFall = true;
-          break;
-        }
+        this.checkFallenHole();
         // Check if you go back to the same place
         if (
           this.board[this.playerPosition[0]][this.playerPosition[1]] ===
             pathCharacter &&
-          this.checkFall === false
+          this.isFallen === false
         ) {
           console.log("You can't go back from where you came from.");
           console.log("Try again!");
           this.playerPosition[1]++;
         }
-        if (this.checkFall === false && this.checkWin() === false) {
+        if (this.isFallen === false && this.isWin === false) {
           this.board[this.playerPosition[0]][this.playerPosition[1]] =
             pathCharacter;
           this.print();
@@ -127,43 +150,29 @@ class Field {
         break;
       // Move Down
       case "S":
-        // Check Fall Lower Edge
-        if (this.playerPosition[0] === this.board.length - 1) {
-          console.log("Game over!: You fell a map.");
-          console.log("Omae Wa Mou Shindeiru! Nani!!!");
-          this.checkFall = true;
-        }
+        this.checkFallenEdge("S");
         // Move player
         if (this.playerPosition[0] < this.board.length - 1) {
           this.playerPosition[0]++;
           this.checkWin();
         }
         // Check Win
-        if (this.checkWin() === true) {
-          console.log("You Win!: You can find a hat.");
-          console.log("Mission Complete!!!");
+        if (this.isWin === true) {
           break;
         }
         // Check Fall in a hole
-        if (
-          this.board[this.playerPosition[0]][this.playerPosition[1]] === hole
-        ) {
-          console.log("Game over!: You fall in a hole.");
-          console.log("Omae Wa Mou Shindeiru! Nani!!!");
-          this.checkFall = true;
-          break;
-        }
+        this.checkFallenHole();
         // Check if you go back to the same place
         if (
           this.board[this.playerPosition[0]][this.playerPosition[1]] ===
             pathCharacter &&
-          this.checkFall === false
+          this.isFallen === false
         ) {
           console.log("You can't go back from where you came from.");
           console.log("Try again!");
           this.playerPosition[0]--;
         }
-        if (this.checkFall === false && this.checkWin() === false) {
+        if (this.isFallen === false && this.isWin === false) {
           this.board[this.playerPosition[0]][this.playerPosition[1]] =
             pathCharacter;
           this.print();
@@ -171,43 +180,29 @@ class Field {
         break;
       // Move Right
       case "D":
-        // Check Fall Right Edge
-        if (this.playerPosition[1] === this.board[0].length - 1) {
-          console.log("Game over!: You fell a map.");
-          console.log("Omae Wa Mou Shindeiru! Nani!!!");
-          this.checkFall = true;
-        }
+        this.checkFallenEdge("D");
         // Move player
         if (this.playerPosition[1] < this.board[0].length - 1) {
           this.playerPosition[1]++;
           this.checkWin();
         }
         // Check Win
-        if (this.checkWin() === true) {
-          console.log("You Win!: You can find a hat.");
-          console.log("Mission Complete!!!");
+        if (this.isWin === true) {
           break;
         }
         // Check Fall in a hole
-        if (
-          this.board[this.playerPosition[0]][this.playerPosition[1]] === hole
-        ) {
-          console.log("Game over!: You fall in a hole.");
-          console.log("Omae Wa Mou Shindeiru! Nani!!!");
-          this.checkFall = true;
-          break;
-        }
+        this.checkFallenHole();
         // Check if you go back to the same place
         if (
           this.board[this.playerPosition[0]][this.playerPosition[1]] ===
             pathCharacter &&
-          this.checkFall === false
+          this.isFallen === false
         ) {
           console.log("You can't go back from where you came from.");
           console.log("Try again!");
           this.playerPosition[1]--;
         }
-        if (this.checkFall === false && this.checkWin() === false) {
+        if (this.isFallen === false && this.isWin === false) {
           this.board[this.playerPosition[0]][this.playerPosition[1]] =
             pathCharacter;
           this.print();
@@ -216,13 +211,6 @@ class Field {
       default:
         console.log("Input Error");
     }
-  }
-
-  checkWin() {
-    if (this.board[this.playerPosition[0]][this.playerPosition[1]] === hat) {
-      return true;
-    }
-    return false;
   }
 }
 // initialize
@@ -233,7 +221,7 @@ const myField = new Field([
 ]);
 myField.print();
 
-while (myField.checkFall === false && myField.checkWin() === false) {
+while (myField.isFallen === false && myField.isWin === false) {
   console.log("Which way you want to go?");
   const input = prompt("W: Up, A: Left, S: Down, D: right => ");
   myField.checkDirectionInput(input);
