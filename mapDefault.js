@@ -32,8 +32,20 @@ class Field {
     this.isWin = false;
   }
 
-  print() {
+  get getBoard() {
     console.log(this.board.map((r) => r.join("")).join("\n"));
+  }
+
+  get getIsFallenEdge() {
+    return this.isFallenEdge;
+  }
+
+  get getIsFallenHole() {
+    return this.isFallenHole;
+  }
+
+  get getIsWin() {
+    return this.isWin;
   }
 
   checkFallenEdge(key) {
@@ -105,14 +117,19 @@ class Field {
         if (
           this.board[this.playerPosition[0]][this.playerPosition[1]] ===
             pathCharacter &&
-          this.isFallen === false
+          this.isFallenEdge === false &&
+          this.isFallenHole === false
         ) {
           console.log("You can't go back from where you came from.");
           console.log("Try again!");
           this.playerPosition[0]++;
           this.checkGoBack = true;
         }
-        if (this.isFallenEdge === false && this.isWin === false) {
+        if (
+          this.isFallenEdge === false &&
+          this.isFallenHole === false &&
+          this.isWin === false
+        ) {
           this.board[this.playerPosition[0]][this.playerPosition[1]] =
             pathCharacter;
           this.print();
@@ -136,13 +153,18 @@ class Field {
         if (
           this.board[this.playerPosition[0]][this.playerPosition[1]] ===
             pathCharacter &&
-          this.isFallen === false
+          this.isFallenEdge === false &&
+          this.isFallenHole === false
         ) {
           console.log("You can't go back from where you came from.");
           console.log("Try again!");
           this.playerPosition[1]++;
         }
-        if (this.isFallen === false && this.isWin === false) {
+        if (
+          this.isFallenEdge === false &&
+          this.isFallenHole === false &&
+          this.isWin === false
+        ) {
           this.board[this.playerPosition[0]][this.playerPosition[1]] =
             pathCharacter;
           this.print();
@@ -166,13 +188,18 @@ class Field {
         if (
           this.board[this.playerPosition[0]][this.playerPosition[1]] ===
             pathCharacter &&
-          this.isFallen === false
+          this.isFallenHole === false &&
+          this.isWin === false
         ) {
           console.log("You can't go back from where you came from.");
           console.log("Try again!");
           this.playerPosition[0]--;
         }
-        if (this.isFallen === false && this.isWin === false) {
+        if (
+          this.isFallenHole === false &&
+          this.isWin === false &&
+          this.isWin === false
+        ) {
           this.board[this.playerPosition[0]][this.playerPosition[1]] =
             pathCharacter;
           this.print();
@@ -196,16 +223,21 @@ class Field {
         if (
           this.board[this.playerPosition[0]][this.playerPosition[1]] ===
             pathCharacter &&
-          this.isFallen === false
+          this.isFallenHole === false &&
+          this.isWin === false
         ) {
           console.log("You can't go back from where you came from.");
           console.log("Try again!");
           this.playerPosition[1]--;
         }
-        if (this.isFallen === false && this.isWin === false) {
+        if (
+          this.isFallenHole === false &&
+          this.isWin === false &&
+          this.isWin === false
+        ) {
           this.board[this.playerPosition[0]][this.playerPosition[1]] =
             pathCharacter;
-          this.print();
+          this.getBoard;
         }
         break;
       default:
@@ -219,9 +251,13 @@ const myField = new Field([
   ["░", "O", "░"],
   ["░", "^", "░"],
 ]);
-myField.print();
+myField.getBoard;
 
-while (myField.isFallen === false && myField.isWin === false) {
+while (
+  myField.getIsFallenEdge === false &&
+  myField.getIsFallenHole === false &&
+  myField.getIsWin === false
+) {
   console.log("Which way you want to go?");
   const input = prompt("W: Up, A: Left, S: Down, D: right => ");
   myField.checkDirectionInput(input);
