@@ -18,7 +18,6 @@ const prompt = require("prompt-sync")({ sigint: true });
 
 const hat = "^";
 const hole = "O";
-const fieldCharacter = "░";
 const pathCharacter = "*";
 
 class Field {
@@ -33,7 +32,7 @@ class Field {
   }
 
   get getBoard() {
-    console.log(this.board.map((r) => r.join("")).join("\n"));
+    return this.board.map((r) => r.join("")).join("\n");
   }
 
   get getIsFallenEdge() {
@@ -55,21 +54,25 @@ class Field {
         if (this.playerPosition[0] === 0) {
           this.isFallenEdge = true;
         }
+        break;
       case "A":
         // Check Fall Left Edge
         if (this.playerPosition[1] === 0) {
           this.isFallenEdge = true;
         }
+        break;
       case "S":
         // Check Fall Lower Edge
         if (this.playerPosition[0] === this.board.length - 1) {
           this.isFallenEdge = true;
         }
+        break;
       case "D":
         // Check Fall Right Edge
         if (this.playerPosition[1] === this.board[0].length - 1) {
           this.isFallenEdge = true;
         }
+        break;
     }
     if (this.isFallenEdge) {
       console.log("Game over!: You fell a map.");
@@ -132,7 +135,7 @@ class Field {
         ) {
           this.board[this.playerPosition[0]][this.playerPosition[1]] =
             pathCharacter;
-          this.print();
+          console.log(this.getBoard);
         }
         break;
       // Move Left
@@ -167,7 +170,7 @@ class Field {
         ) {
           this.board[this.playerPosition[0]][this.playerPosition[1]] =
             pathCharacter;
-          this.print();
+          console.log(this.getBoard);
         }
         break;
       // Move Down
@@ -202,7 +205,7 @@ class Field {
         ) {
           this.board[this.playerPosition[0]][this.playerPosition[1]] =
             pathCharacter;
-          this.print();
+          console.log(this.getBoard);
         }
         break;
       // Move Right
@@ -237,7 +240,7 @@ class Field {
         ) {
           this.board[this.playerPosition[0]][this.playerPosition[1]] =
             pathCharacter;
-          this.getBoard;
+          console.log(this.getBoard);
         }
         break;
       default:
@@ -251,7 +254,7 @@ const myField = new Field([
   ["░", "O", "░"],
   ["░", "^", "░"],
 ]);
-myField.getBoard;
+console.log(myField.getBoard);
 
 while (
   myField.getIsFallenEdge === false &&
