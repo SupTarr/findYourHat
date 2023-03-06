@@ -1,19 +1,19 @@
 const prompt = require("prompt-sync")({ sigint: true });
-/* index of the board
-
-      C O L U M N
-    ----------------
- R  |  00  01  02  |
- O  |  10  11  12  |
- W  |  20  21  22  |
-    ----------------
-
+/* 
+  index of the board
+        C O L U M N
+      ----------------
+  R  |  00  01  02  |
+  O  |  10  11  12  |
+  W  |  20  21  22  |
+      ----------------
 */
 
-/* Default Map
-  ['*', '░', 'O'],
-  ['░', 'O', '░'],
-  ['░', '^', '░'], 
+/* 
+  Default Map
+    ['*', '░', 'O'],
+    ['░', 'O', '░'],
+    ['░', '^', '░'], 
 */
 
 const hat = "^";
@@ -27,6 +27,7 @@ class Field {
     this.hatPosition = [2, 1];
     this.countHole = 0;
     this.isFallenEdge = false;
+    this.isGoBack = false;
     this.isFallenHole = false;
     this.isWin = false;
   }
@@ -80,6 +81,16 @@ class Field {
     }
   }
 
+  checkGoBack(nextPosition) {
+    if (this.board[nextPosition[0]][nextPosition[1]] === pathCharacter) {
+      this.isGoBack = true;
+    }
+    if (this.isGoBack) {
+      console.log("You can't go back from where you came from.");
+      console.log("Try again!");
+    }
+  }
+
   checkFallenHole() {
     if (this.board[this.playerPosition[0]][this.playerPosition[1]] === hole) {
       this.isFallenHole = true;
@@ -105,142 +116,95 @@ class Field {
       // Move Up
       case "W":
         this.checkFallenEdge("W");
-        // Move player
-        if (this.playerPosition[0] > 0) {
-          this.playerPosition[0]--;
-          this.checkWin();
-        }
-        // Check Win
-        if (this.isWin === true) {
+        if (!this.isFallenEdge) {
+          this.checkGoBack([
+            this.playerPosition[0] - 1,
+            this.playerPosition[1],
+          ]);
+          if (this.playerPosition[0] > 0 && !this.isGoBack) {
+            this.playerPosition[0]--;
+            this.checkFallenHole();
+            this.checkWin();
+          }
+          if (!this.isFallenHole && !this.isWin) {
+            this.board[this.playerPosition[0]][this.playerPosition[1]] =
+              pathCharacter;
+            console.log(this.getBoard);
+          }
+        } else {
           break;
-        }
-        // Check Fall in a hole
-        this.checkFallenHole();
-        // Check if you go back to the same place
-        if (
-          this.board[this.playerPosition[0]][this.playerPosition[1]] ===
-            pathCharacter &&
-          this.isFallenEdge === false &&
-          this.isFallenHole === false
-        ) {
-          console.log("You can't go back from where you came from.");
-          console.log("Try again!");
-          this.playerPosition[0]++;
-          this.checkGoBack = true;
-        }
-        if (
-          this.isFallenEdge === false &&
-          this.isFallenHole === false &&
-          this.isWin === false
-        ) {
-          this.board[this.playerPosition[0]][this.playerPosition[1]] =
-            pathCharacter;
-          console.log(this.getBoard);
         }
         break;
       // Move Left
       case "A":
         this.checkFallenEdge("A");
-        // Move player
-        if (this.playerPosition[1] > 0) {
-          this.playerPosition[1]--;
-          this.checkWin();
-        }
-        // Check Win
-        if (this.isWin === true) {
+        if (!this.isFallenEdge) {
+          this.checkGoBack([
+            this.playerPosition[0],
+            this.playerPosition[1] - 1,
+          ]);
+          if (this.playerPosition[1] > 0 && !this.isGoBack) {
+            this.playerPosition[1]--;
+            this.checkFallenHole();
+            this.checkWin();
+          }
+          if (!this.isFallenHole && !this.isWin) {
+            this.board[this.playerPosition[0]][this.playerPosition[1]] =
+              pathCharacter;
+            console.log(this.getBoard);
+          }
+        } else {
           break;
-        }
-        // Check Fall in a hole
-        this.checkFallenHole();
-        // Check if you go back to the same place
-        if (
-          this.board[this.playerPosition[0]][this.playerPosition[1]] ===
-            pathCharacter &&
-          this.isFallenEdge === false &&
-          this.isFallenHole === false
-        ) {
-          console.log("You can't go back from where you came from.");
-          console.log("Try again!");
-          this.playerPosition[1]++;
-        }
-        if (
-          this.isFallenEdge === false &&
-          this.isFallenHole === false &&
-          this.isWin === false
-        ) {
-          this.board[this.playerPosition[0]][this.playerPosition[1]] =
-            pathCharacter;
-          console.log(this.getBoard);
         }
         break;
       // Move Down
       case "S":
         this.checkFallenEdge("S");
-        // Move player
-        if (this.playerPosition[0] < this.board.length - 1) {
-          this.playerPosition[0]++;
-          this.checkWin();
-        }
-        // Check Win
-        if (this.isWin === true) {
+        if (!this.isFallenEdge) {
+          this.checkGoBack([
+            this.playerPosition[0] + 1,
+            this.playerPosition[1],
+          ]);
+          if (
+            this.playerPosition[0] < this.board.length - 1 &&
+            !this.isGoBack
+          ) {
+            this.playerPosition[0]++;
+            this.checkFallenHole();
+            this.checkWin();
+          }
+          if (!this.isFallenHole && !this.isWin) {
+            this.board[this.playerPosition[0]][this.playerPosition[1]] =
+              pathCharacter;
+            console.log(this.getBoard);
+          }
+        } else {
           break;
-        }
-        // Check Fall in a hole
-        this.checkFallenHole();
-        // Check if you go back to the same place
-        if (
-          this.board[this.playerPosition[0]][this.playerPosition[1]] ===
-            pathCharacter &&
-          this.isFallenHole === false &&
-          this.isWin === false
-        ) {
-          console.log("You can't go back from where you came from.");
-          console.log("Try again!");
-          this.playerPosition[0]--;
-        }
-        if (
-          this.isFallenHole === false &&
-          this.isWin === false &&
-          this.isWin === false
-        ) {
-          this.board[this.playerPosition[0]][this.playerPosition[1]] =
-            pathCharacter;
-          console.log(this.getBoard);
         }
         break;
       // Move Right
       case "D":
         this.checkFallenEdge("D");
-        // Move player
-        if (this.playerPosition[1] < this.board[0].length - 1) {
-          this.playerPosition[1]++;
-          this.checkWin();
-        }
-        // Check Win
-        if (this.isWin === true) {
+        if (!this.isFallenEdge) {
+          this.checkGoBack([
+            this.playerPosition[0],
+            this.playerPosition[1] + 1,
+          ]);
+          if (
+            this.playerPosition[1] < this.board[0].length - 1 &&
+            !this.isGoBack
+          ) {
+            this.playerPosition[1]++;
+            this.checkFallenHole();
+            this.checkWin();
+          }
+          if (!this.isFallenHole && !this.isWin) {
+            this.board[this.playerPosition[0]][this.playerPosition[1]] =
+              pathCharacter;
+            console.log(this.getBoard);
+          }
+        } else {
           break;
-        }
-        // Check Fall in a hole
-        this.checkFallenHole();
-        // Check if you go back to the same place
-        if (
-          this.board[this.playerPosition[0]][this.playerPosition[1]] ===
-            pathCharacter &&
-          this.isFallenHole === false &&
-          this.isWin === false
-        ) {
-          console.log("You can't go back from where you came from.");
-          console.log("Try again!");
-          this.playerPosition[1]--;
-        }
-        if (
-          this.isFallenHole === false &&
-          this.isWin === false &&
-          this.isWin === false
-        ) {
-          this.board[this.playerPosition[0]][this.playerPosition[1]] =
-            pathCharacter;
-          console.log(this.getBoard);
         }
         break;
       default:
@@ -257,9 +221,9 @@ const myField = new Field([
 console.log(myField.getBoard);
 
 while (
-  myField.getIsFallenEdge === false &&
-  myField.getIsFallenHole === false &&
-  myField.getIsWin === false
+  !myField.getIsFallenEdge &&
+  !myField.getIsFallenHole &&
+  !myField.getIsWin
 ) {
   console.log("Which way you want to go?");
   const input = prompt("W: Up, A: Left, S: Down, D: right => ");
